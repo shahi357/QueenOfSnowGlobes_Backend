@@ -16,7 +16,12 @@ router.post("/signup", async (req, res) => {
     });
     await newUser.save();
     req.session.userId = newUser._id;
-    res.status(201).json({ userId: newUser._id, role: newUser.role });
+    res.status(201).json({
+      userId: newUser._id,
+      firstName: newUser.firstName,
+      email: newUser.email,
+      role: newUser.role,
+    });
     console.log("New user created successfully.");
   } catch (error) {
     res.status(500).json({ error: error.message });
