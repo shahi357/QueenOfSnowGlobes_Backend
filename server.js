@@ -5,6 +5,9 @@ const dotenv = require("dotenv");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const authRoutes = require("./routes/auth");
+const galleryRoutes = require("./routes/gallery");
+const shopRoutes = require("./routes/shop");
+const orderRoutes = require("./routes/orderRoutes");
 
 dotenv.config();
 
@@ -31,8 +34,12 @@ app.use(
     cookie: { maxAge: 1000 * 60 * 60 * 24 }, // 1 day
   })
 );
+app.use("/uploads", express.static("uploads"));
 
 app.use("/api/auth", authRoutes);
+app.use("/api/gallery", galleryRoutes);
+app.use("/api/shop", shopRoutes);
+app.use("/api/orders", orderRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
